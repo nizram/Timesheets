@@ -24,6 +24,7 @@ temp_folder = './temp/'
 pdf_pages = ""
 timesheet_file = ""
 
+Department = ''
 PayPeriodTitle = 'BS'
 PayPeriodNumber = ''
 StartDate = ''
@@ -76,8 +77,8 @@ def build_csv():
 	# print pages
 
 	for i in range(pages):
-		header = "Pages,PayPeriodTitle,PayPeriodNumber,StartDate,EndDate,DueByDate,Day1,Day2,Day3,Day4,Day5,Day6,Day7,Day8,Day9,Day10,Day11,Day12,Day13,Day14,Name1,ID1,Assignment1,Name2,ID2,Assignment2,Name3,ID3,Assignment3,Name4,ID4,Assignment4\n"
-		data = str(i)+","+"BS,"+PayPeriodNumber+","+StartDate+","+EndDate+","+DueByDate+","+Days[0]+","+Days[1]+","+Days[2]+","+Days[3]+","+Days[4]+","+Days[5]+","+Days[6]+","+Days[7]+","+Days[8]+","+Days[9]+","+Days[10]+","+Days[11]+","+Days[12]+","+Days[13]
+		header = "Pages,DeptNumber,PayPeriodTitle,PayPeriodNumber,StartDate,EndDate,DueByDate,Day1,Day2,Day3,Day4,Day5,Day6,Day7,Day8,Day9,Day10,Day11,Day12,Day13,Day14,Name1,ID1,Assignment1,Name2,ID2,Assignment2,Name3,ID3,Assignment3,Name4,ID4,Assignment4\n"
+		data = str(i)+","+Department+","+"BS,"+PayPeriodNumber+","+StartDate+","+EndDate+","+DueByDate+","+Days[0]+","+Days[1]+","+Days[2]+","+Days[3]+","+Days[4]+","+Days[5]+","+Days[6]+","+Days[7]+","+Days[8]+","+Days[9]+","+Days[10]+","+Days[11]+","+Days[12]+","+Days[13]
 		Name1 = ID1 = Assignment1 = Name2 = ID2 = Assignment2 = Name3 = ID3 = Assignment3 = Name4 = ID4 = Assignment4 = ""
 		for j in range(4):
 			if j == 0:
@@ -111,7 +112,7 @@ def buildDates():
 	global EndDate
 	global DueByDate
 	#start = datetime.datetime.strptime(StartDate, "%m/%d/%y")
-	start = datetime.datetime.strptime(sys.argv[2], "%Y-%m-%d")
+	start = datetime.datetime.strptime(sys.argv[3], "%Y-%m-%d")
 	StartDate = start.strftime("%m/%d/%y") 
 	end = start + datetime.timedelta(days=13)
 	EndDate = end.strftime("%m/%d/%y")
@@ -127,15 +128,17 @@ def buildDates():
 def checkArgs():
 	global PayPeriodNumber
 	global UserList
-	if len(sys.argv) < 4:
+	global Department
+	if len(sys.argv) < 5:
 		print "Missing Arguments"
 		return -1
-	elif not os.path.isfile(sys.argv[3]):
+	elif not os.path.isfile(sys.argv[4]):
 		print "File Not Found"
 		return -1
 	else:
-		PayPeriodNumber = sys.argv[1]
-		UserList = sys.argv[3]
+		Department = sys.argv[1]
+		PayPeriodNumber = sys.argv[2]
+		UserList = sys.argv[4]
 		return 0
 def combinePDF():
 	global pdf_pages

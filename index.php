@@ -57,6 +57,14 @@
 		</div>-->
 		<form action="run_python.php" method="post" enctype="multipart/form-data">
 			<ul>
+				<li>
+					Department Number:
+					<select name="Department">
+						<option value="" selected disabled>#####</option>
+						<option value="22008">22008</option>
+						<option value="22010">22010</option>
+					</select>
+				</li>
                 <li>
                     Pay Period Number:
                     <input type="text" name="PayPeriod">
